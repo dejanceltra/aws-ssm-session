@@ -13,14 +13,14 @@ rm -rf "$DIR"
 mkdir -p "$DIR"
 
 # Transpile CommonJS versions of files
-babel --env-name commonjs src --source-root src --out-dir "$DIR" --copy-files --quiet
+npx babel --env-name commonjs src --source-root src --out-dir "$DIR" --copy-files --quiet
 
 # Transpile ESM versions of files for the browser
-babel --env-name esmBrowser src --source-root src --out-dir "$DIR/esm-browser" --copy-files --quiet
+npx babel --env-name esmBrowser src --source-root src --out-dir "$DIR/esm-browser" --copy-files --quiet
 
 # Transpile ESM versions of files for node
-babel --env-name esmNode src --source-root src --out-dir "$DIR/esm-node" --copy-files --quiet
+npx babel --env-name esmNode src --source-root src --out-dir "$DIR/esm-node" --copy-files --quiet
 
 # UMD Build
 mkdir "$DIR/umd"
-rollup -c
+npx rollup -c
