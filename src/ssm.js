@@ -254,6 +254,22 @@ var ssm = {
     messageSequenceNumber = 0;
     connection.send(ssm.buildTokenMessage(data.token));
     connection.send(ssm.buildInitMessage(data.termOptions));
+
+    this.keepAliveTimer(connection)
+  },
+
+  keepAliveTimer: function (connection) {
+    this.sendKeepAlive(connection)
+
+    if (connection.readystate === WebSocket.CLOSED) {
+      return
+    }
+
+    setTimeout(() => this.keepAliveTimer(connection), 30_000)
+  },
+
+  sendKeepAlive: function (connection) {
+    connection.send('keepalive')
   },
 
   sendInitMessage: function (connection, termOptions) {
